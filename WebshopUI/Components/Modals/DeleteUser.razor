@@ -1,0 +1,23 @@
+﻿@using TabBlazor
+
+@if (ShowDialog)
+{
+
+    <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleLabel">Delete User</h5>
+                    <button type="button" class="close" @onclick="@Close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                       Are you sure you want to delete @User.UserName?
+                        <button type="submit" class="btn btn-danger"@onclick="() => DeleteUserAsync(User.Email)">DELETE</button>
+                        <a class="btn btn-outline-primary" @onclick="@Close">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}  

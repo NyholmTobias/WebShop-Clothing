@@ -1,0 +1,46 @@
+﻿
+<Card>
+    <CardHeader BackgroundColor="TablerColor.Dark" TextColor="TablerColor.White">Orders </CardHeader>
+    
+    <Pager @ref="Pager" OrderResponses="OrderedOrderResponses" ItemsPerPage="10" >
+        <HeaderDisplay>
+            <tr>
+                <th style="cursor: pointer; " @onclick="() => SortOrdersBy(OrderByOrderNo)">OrderNo</th>
+                <th style="cursor: pointer; " @onclick="() => SortOrdersBy(OrderByCreatedDate)">Created date</th>
+                <th style="cursor: pointer; " @onclick="() => SortOrdersBy(OrderByModifiedDate)">Last Modified</th>
+                <th style="cursor: pointer; " @onclick="() => SortOrdersBy(OrderByStatus)">Status</th>
+                <th style="cursor: pointer; " @onclick="() => SortOrdersBy(OrderByBoughtBy)">Bought by</th>
+                <th>Total Price</th>
+                <th>Order info</th>
+                @if(Admin)
+                {
+                    <th>Delete</th>
+                }
+                
+            </tr>
+        </HeaderDisplay>
+        <ItemDisplay>
+            <tr>
+                <td>@context.OrderId</td>
+                <td>@context.CreatedDate</td>
+                <td>@context.LastModifiedDate</td>
+                <td>@context.Status</td>
+                <td>@context.Username</td>
+                <td>@context.TotalPrice</td>
+                <td> <a href="@NavigateToOnClick @context.OrderId" class="fas fa-info-circle" style="color: blue; margin-left:30px; cursor: pointer"></a></td>
+                @if(Admin)
+                {
+                    <td>  <a class="fas fa-trash-alt"
+                               style="color:red; margin-left:15px; cursor:pointer"
+                               @onclick="(() => ShowDeleteModal())">
+                            </a></td>
+
+                }
+                
+                 <DeleteOrder @ref="DeleteOrder" CloseEventCallback="() => DeleteModal_OnDialogClose()" OrderId="@context.OrderId"></DeleteOrder>
+            </tr>
+            
+        </ItemDisplay>
+    </Pager>
+</Card>
+

@@ -1,0 +1,23 @@
+﻿@page "/category/{CategoryName}"
+
+@if(CategoryResponse == null)
+{
+    <LoadingComponent></LoadingComponent>
+}
+else
+{
+    <h3 class="category-title">@CategoryResponse.Name</h3>
+
+    <div class="item-container">
+    @foreach(var item in @CategoryResponse.Items)
+    {
+
+        <ItemCard Admin="false" ItemResponse="item" @ref="ItemCard"></ItemCard>
+
+
+    }
+    </div>
+}
+<SomethingWentWrong @ref="SomethingWentWrong"></SomethingWentWrong>
+
+

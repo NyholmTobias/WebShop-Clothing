@@ -1,0 +1,114 @@
+﻿@using WebshopShared.ResponseModels
+
+@if (!OrderResponses.Any())
+{
+    <div class="none-indicator">(none)</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            @HeaderDisplay
+        </thead>
+        <tbody>
+            @foreach (var order in CurrentDisplay)
+            {
+                          @ItemDisplay(order);
+            }
+            </tbody>
+    </table>
+    @if (TotalPages() > 1)
+    {
+        <div class="pager-display">
+            @if (CurrentPage == 1)
+            {
+                <Button BackgroundColor="TablerColor.Dark" Size="ButtonSize.Small" disabled>&laquo;</Button>
+                <Button BackgroundColor="TablerColor.Dark" Size="ButtonSize.Small" disabled>&lsaquo;</Button>
+            }
+            else
+            {
+                <Button BackgroundColor="TablerColor.Dark" Size="ButtonSize.Small" @onclick="@MoveFirst" title="Move First">&laquo;</Button>
+                <Button BackgroundColor="TablerColor.Dark" Size="ButtonSize.Small" @onclick="@MoveBack" title="Move Back">&lsaquo;</Button>
+            }
+            <span>@CurrentPage of @TotalPages() </span>
+            @if (!AtLastPage())
+            {
+                <Button BackgroundColor="TablerColor.Dark" Size="ButtonSize.Small" @onclick="@MoveNext" title="Move Next">&rsaquo;</Button>
+                <Button BackgroundColor="TablerColor.Dark" Size="ButtonSize.Small" @onclick="@MoveLast" title="Move Last">&raquo;</Button>
+            }
+            else
+            {
+                <Button BackgroundColor="TablerColor.Dark" Size="ButtonSize.Small" disabled>&rsaquo;</Button>
+                <Button BackgroundColor="TablerColor.Dark" Size="ButtonSize.Small" disabled>&raquo;</Button>
+            }
+        </div>
+    }
+}
+
+@code {
+
+    [Parameter]
+    public IOrderedEnumerable<OrderResponse> OrderResponses { get; set; }
+
+    public List<OrderResponse> OrdersAfterStatusSort { get; set; } = new List<OrderResponse>();
+    [Parameter]
+    public RenderFragment HeaderDisplay { get; set; }
+    [Parameter]
+    public RenderFragment<OrderResponse> ItemDisplay { get; set; }
+    [Parameter]
+    public int ItemsPerPage { get; set; } = 10;
+
+    private int CurrentPage = 1;
+    private List<OrderResponse> CurrentDisplay;
+    private int TotalCount;
+
+    protected override void OnParametersSet()
+    {
+        UpdateDisplay();
+        TotalCount = OrdersAfterStatusSort.Count();
+    }
+
+    private void UpdateDisplay()
+    {
+        OrdersAfterStatusSort.Clear();
+
+        OrdersAfterStatusSort = OrderResponses.ToList();
+
+        CurrentDisplay = OrdersAfterStatusSort.Skip((CurrentPage - 1) * ItemsPerPage).Take(ItemsPerPage).ToList();
+    }
+
+    private bool AtLastPage()
+    {
+        return CurrentPage >= TotalPages();
+    }
+
+    private int TotalPages()
+    {
+        return Convert.ToInt32(Math.Ceiling(TotalCount / Convert.ToDecimal(ItemsPerPage)));
+    }
+
+    private void MoveFirst()
+    {
+        CurrentPage = 1;
+        UpdateDisplay();
+    }
+
+    private void MoveBack()
+    {
+        CurrentPage--;
+        UpdateDisplay();
+    }
+
+    private void MoveNext()
+    {
+        CurrentPage++;
+        UpdateDisplay();
+    }
+
+    private void MoveLast()
+    {
+        CurrentPage = TotalPages();
+        UpdateDisplay();
+    }
+
+}

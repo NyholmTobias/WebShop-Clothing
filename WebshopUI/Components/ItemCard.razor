@@ -1,0 +1,47 @@
+﻿<div class="card-wrapper">
+
+    <div class="item-image-wrapper">
+        <img class="item-image" src=@ItemResponse.PictureSourcePath />
+    </div>
+
+    <div class="item-body">
+        <h5 class="title">@ItemResponse.Name</h5>
+        <h6><strong>@ItemResponse.Price SEK</strong></h6>
+            <p>@ItemResponse.Description</p>
+            <br />
+            <p><em>Only @ItemResponse.StockQuantity left</em></p>
+            <div class="add-to-cart-wrapper">
+                Quantity
+                 @if(Admin)
+                {
+                            <div>   
+                                 <EditForm Model="@ItemResponse" OnValidSubmit="@(() => AddToStock(ItemResponse, Quantity))">
+                                <input id="quantity-input" type="number" @bind="Quantity" placeholder="" />
+                            </EditForm>
+                            </div>
+                <AuthorizeView Policy="Customer">
+                    <Authorized> 
+                           <button type="submit" class="add-to-cart" @onclick="@(() => @AddToStock(ItemResponse, Quantity))">📦</button>
+               
+                    </Authorized>
+                </AuthorizeView>   
+            }
+            else
+            {
+                 <div>   
+                                 <EditForm Model="@ItemResponse" OnValidSubmit="@(() => AddToCart(ItemResponse, Quantity))">
+                                <input id="quantity-input" type="number" @bind="Quantity" placeholder="" />
+                            </EditForm>
+                            </div>
+                <AuthorizeView Policy="Customer">
+                    <Authorized> 
+                           <button type="submit" class="add-to-cart" @onclick="@(() => @AddToCart(ItemResponse, Quantity))">🛒</button>
+               
+                    </Authorized>
+                </AuthorizeView>
+            }
+        </div>
+    </div>  
+</div>
+
+<SomethingWentWrong @ref="SomethingWentWrong"></SomethingWentWrong>

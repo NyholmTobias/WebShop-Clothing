@@ -1,0 +1,19 @@
+﻿.container {
+    border: 10px solid grey;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px grey;
+    position: absolute;
+    filter: none;
+    margin-top: -50%;
+    margin-left: 15%;
+    max-width: 300px;
+    background-color: #fff;
+    color: darkgrey;
+    padding: 2%;
+    text-align: center;
+    min-width: 300px;
+}
+
+.hide {
+    display: none;
+}

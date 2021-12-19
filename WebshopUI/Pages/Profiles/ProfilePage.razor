@@ -1,0 +1,23 @@
+﻿@page "/profile"
+
+@attribute [Authorize(Policy = "Customer")]
+
+
+@if(OrderResponses == null)
+{
+     <LoadingComponent></LoadingComponent>
+}
+else
+{
+    <CardHeader>Welcome @UserResponse.UserName</CardHeader>
+    <CardBody>You have @OrderResponses.Count() Orders for a value of @OrderResponses.Sum(x => x.TotalPrice):-
+   
+    @if(@OrderResponses.Sum(x => x.TotalPrice) > 1000)
+    {
+        <div>Amazing @UserResponse.UserName!</div>
+    }
+    </CardBody>
+
+    <OrderTable Admin="false" @ref="OrderTable" OrderResponses="OrderResponses" NavigateToOnClick="/profile/order/"></OrderTable>
+
+}

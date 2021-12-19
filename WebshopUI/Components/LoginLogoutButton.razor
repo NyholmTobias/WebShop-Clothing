@@ -1,0 +1,24 @@
+﻿
+@if (Identity.User.Identity.Name != null)
+{
+    <form action="/logout" method="post">
+        <a style="color: red; cursor: pointer" Type="submit" @onclick="() => RedirectToLogout()">
+            <h3 class="icon fas fa-sign-out-alt"></h3>
+        </a>
+
+        @* "__RequestVerificationToken" MÅSTE ha två understräck annars fungerar det inte pga naming conventions *@
+        <input name="__RequestVerificationToken" type="hidden" value="@TokenProvider.XsrfToken" />
+    </form>
+}
+else
+{
+    <a style="color: green; cursor: pointer" @onclick="() => RedirectToLogin()">
+        <h3 class="fas fa-sign-in-alt"></h3>
+    </a>
+
+    <a style="color: green; cursor: pointer" href="/register">
+        <h3 class="fas fa-user-plus"></h3>
+    </a>
+}
+
+

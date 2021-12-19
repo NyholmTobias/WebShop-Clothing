@@ -1,0 +1,53 @@
+﻿
+<div class="header">
+        <a href="/">
+            <h1> BuyMyface<span style="font-size:16px;">.se</span> </h1>
+        </a>
+</div>
+
+<div class="container">
+        <div id="links">
+            @if (@CategoryResponses == null)
+                {
+            <p><em>Loading categories...</em></p>
+            }
+            else
+            {
+                 @foreach (var category in @CategoryResponses)
+                 {    
+                    <a onclick="@(() => NavigateToCategory(@category.Name))" style="cursor:pointer;" class="category-link" >@category.Name</a>
+                 }
+                 
+            }
+        </div>
+
+        <div class="icons">
+           <a href="/"> 
+               <h3 class="icon">
+                   🏠
+               </h3>
+           </a>
+           <a href="/profile"> 
+               <h3 class="icon">
+                   💁
+               </h3>
+           </a>
+           
+           <a href="/cart"> 
+               <h3 class="icon">
+                   🛒
+               </h3>
+           </a>
+           <AuthorizeView Policy="Admin">
+               <Authorized>
+           <a href="/admin"> 
+               <h3 class="icon fas fa-tools">
+                   
+               </h3>
+           </a>
+           </Authorized>
+           </AuthorizeView>
+           <LoginLogoutButton @ref="LoginLogoutButton"></LoginLogoutButton>
+        </div>
+        
+</div>

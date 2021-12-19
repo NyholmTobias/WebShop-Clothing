@@ -1,0 +1,109 @@
+﻿@using TabBlazor
+
+@if (ShowDialog)
+{<Card>
+     
+         <div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
+             <div class="modal-dialog" role="document">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <CardHeader  class="modal-title" id="titleLabel">Update user: @Username</CardHeader>
+                         <div style="display:flex;">
+                             <div style="flex-grow: 1;"></div>
+                             <div>
+                                 <Button @onclick="@Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </Button>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="modal-body">
+                         
+                         <EditForm Model="@UserResponse" OnValidSubmit="@HandleValidSubmit">
+
+                             <DataAnnotationsValidator />
+                             <ValidationSummary />
+                             <CardBody>
+                                 <div class="form-group">
+                                     <label for="lastName">Email: </label>
+                                     <InputText id="lastName" class="form-control" @bind-Value="@UserResponse.Email" placeholder="@UserResponse.Email">@UserResponse.Email</InputText>
+                                     <ValidationMessage For="@(() => UserResponse.Email)" />
+                                 </div>
+                             </CardBody>
+                             <CardBody>
+                                 <div class="form-group">
+                                     <label for="firstName">Username: </label>
+                                     <InputText id="firstName" class="form-control" @bind-Value="@UserResponse.UserName" placeholder="@UserResponse.UserName">@UserResponse.UserName</InputText>
+                                     <ValidationMessage For="@(() => UserResponse.UserName)" />
+                                 </div>
+                             </CardBody>
+                             <CardBody>
+                                 <div class="form-group">
+                                     <label for="email">PhoneNumber: </label>
+                                     <InputText id="email" class="form-control" @bind-Value="@UserResponse.PhoneNumber" placeholder="@UserResponse.PhoneNumber">@UserResponse.PhoneNumber</InputText>
+                                     <ValidationMessage For="@(() => UserResponse.PhoneNumber)" />
+                                 </div>
+                             </CardBody>
+                             
+                             <div>
+
+
+
+                             </div>
+
+                             <div style="display:flex;">
+                                 <div style="flex-grow: 1;">
+                                     <button type="submit" @onclick="() => HandleValidSubmit()">Save User</button>
+                                 </div>
+                                 <div>
+                                  
+                                     @*<Dropdown CloseOnClick="false">
+                                         <ChildContent>
+                                             <Button Type="ButtonType.Button" Text="Claims" IsDropdown />
+                                         </ChildContent>
+
+
+                                         <DropdownTemplate>
+                                             <DropdownMenu>
+                                                 @foreach (var claim in AllClaims)
+                                                 {
+                                                     if (UserClaims.Any(userclaim => userclaim.ClaimType == claim.ClaimType))
+                                                     {
+                                                         <DropdownItem>
+                                                             <Checkbox Value="true" ValueChanged="(() => AddClaimToList(claim, true))" Label="@claim.ClaimType" />
+                                                         </DropdownItem>
+                                                     }
+                                                     else
+                                                     {
+                                                         <DropdownItem>
+                                                             <Checkbox Value="false" ValueChanged="(() => AddClaimToList(claim, false))" Label="@claim.ClaimType" />
+                                                         </DropdownItem>
+                                                     }
+
+                                                 }
+
+                                             </DropdownMenu>
+                                         </DropdownTemplate>
+
+                                     </Dropdown>*@
+                                 </div>
+                                 <div>
+                                     <button  @onclick="() => Close()" >Close</button>
+                                     <button  @onclick="() => AddAdminClaims()" >Add Admin Claims</button>
+                                     <button  @onclick="() => DeleteAdminClaims()" >Remove Admin Claims</button>
+                                     <button  @onclick="() => AddCustomerClaims()" >Add Customer Claims</button>
+                                     <button  @onclick="() => DeleteCustomerClaims()" >Remove Customer Claims</button>
+                                 </div>
+                             </div>
+
+
+
+                         </EditForm>
+
+                     </div>
+                 </div>
+             </div>
+         </div>
+     
+</Card>
+}

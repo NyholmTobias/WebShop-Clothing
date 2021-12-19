@@ -1,0 +1,16 @@
+﻿@page "/admin/orders"
+@using WebshopShared.ResponseModels
+@attribute [Authorize(Policy = "Admin")]
+
+@if(OrderResponses == null)
+{
+    <LoadingComponent></LoadingComponent>
+}
+else
+{
+    <OrderTable Admin="true" @ref="OrderTable" OrderResponses="OrderResponses" NavigateToOnClick="/admin/order/"></OrderTable>
+
+}
+
+
+

@@ -1,0 +1,31 @@
+﻿@page "/cart"
+@attribute [Authorize(Policy = "Customer")]
+
+@if(LineItems == null)
+{
+     <LoadingComponent></LoadingComponent>
+}
+else
+{
+    @if(LineItems.Count == 0)
+    {
+        <h3>Cart is empty!</h3>
+        <h3>Go buy something!</h3>
+
+    }
+    else
+    {
+        <h3>Checkout</h3>
+        @foreach(var lineItem in @LineItems)
+        {
+            <LineItemCard UserId="UserId"  LineItemResponse="lineItem" @ref="LineItemCard"></LineItemCard>
+        }
+
+    }
+    
+    
+    <button  onclick="@(() => CreateOrder())">Checkout</button>
+    <button  onclick="@(() => ClearCart())">Clear cart</button>
+  
+    <SomethingWentWrong @ref="SomethingWentWrong"></SomethingWentWrong>
+}

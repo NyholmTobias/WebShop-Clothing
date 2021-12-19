@@ -1,0 +1,17 @@
+﻿@page "/admin/items"
+
+@if(Items == null)
+{
+    <LoadingComponent></LoadingComponent>
+}
+else
+{
+    
+    @foreach(var item in Items)
+    {
+        <div style="display: inline-flex">
+        <ItemCard Admin="true" ItemResponse="item" @ref="ItemCard"></ItemCard>
+         </div>
+    }
+   
+}

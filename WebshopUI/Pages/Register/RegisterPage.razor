@@ -1,0 +1,29 @@
+﻿@page "/register"
+
+
+<div>
+                    <EditForm Model="@User" OnValidSubmit="@HandleValidSubmit">
+
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="form-group">
+                            <label for="lastName">Email: </label>
+                            <InputText id="lastName" class="form-control" @bind-Value="@User.Email" placeholder="Enter E-mail"></InputText>
+                            <ValidationMessage For="@(() => User.Email)" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="firstName">Username: </label>
+                            <InputText id="firstName" class="form-control" @bind-Value="@User.UserName" placeholder="Enter username"></InputText>
+                            <ValidationMessage For="@(() => User.UserName)" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Password">Password: </label>
+                            <InputText id="Password" class="form-control" @bind-Value="@User.Password" placeholder="Enter Password"></InputText>
+                            <ValidationMessage For="@(() => User.Password)" />
+                        </div>
+                        <Button BackgroundColor="TablerColor.Green" @onclick="() => HandleValidSubmit()">Register!</Button>
+                    </EditForm>
+
+                </div>

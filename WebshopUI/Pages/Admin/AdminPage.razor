@@ -1,0 +1,86 @@
+﻿@page "/admin"
+@using TabBlazor
+@attribute [Authorize(Policy = "Admin")]
+
+@if (Users == null)
+{
+    <LoadingComponent></LoadingComponent>
+}
+else
+{
+    <Card>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>UserName</th>
+                    <th></th>
+                    <th></th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Users)
+                {
+                    <tr>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            @user.UserName
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                            <a class="fas fa-user-edit"
+                               style="color: aquamarine; cursor: pointer"
+                               @onclick="() => ShowUpdateModal(user.Id, user.UserName)">
+                            </a>
+                        </td>
+
+                        <td>
+                            <a class="fas fa-trash-alt"
+                               style="color:red; cursor:pointer"
+                               @onclick="() => ShowDeleteModal(user)">
+                            </a>
+                        </td>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    </Card>
+    <DeleteUser @ref="DeleteUser" CloseEventCallback="@DeleteModal_OnDialogClose"></DeleteUser>
+    <CreateUser @ref="CreateUser" CloseEventCallback="@CreateModal_OnDialogClose"></CreateUser>
+    <UpdateUser @ref="UpdateUser" CloseEventCallback="@UpdateModal_OnDialogClose"></UpdateUser>
+
+    <div style="display:flex;">
+        <div style="flex-grow: 1;">  
+            <a class="fas fa-user-plus"
+                               style="color:green; cursor:pointer"
+                               @onclick="() => ShowCreateModal()">
+                            </a>
+             </div>
+    
+    
+    <a href="/admin/orders"> 
+               <h3 class="icon">
+                   🛒
+               </h3>
+           </a>
+           <a href="/admin/items"> 
+               <h3 class="icon">
+                   📦
+               </h3>
+           </a>
+           </div>
+
+}
+<SomethingWentWrong @ref="SomethingWentWrong"></SomethingWentWrong>
+
+

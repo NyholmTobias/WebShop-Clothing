@@ -1,0 +1,10 @@
+﻿p {
+    font-family: Courier New, Courier, monospace;
+    padding: 2em;
+    color: grey;
+    font-size: 14px;
+    letter-spacing:2px;
+}
+footer-wrapper {
+    width: 100%;
+}

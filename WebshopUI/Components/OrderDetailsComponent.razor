@@ -1,0 +1,43 @@
+﻿
+@if(OrderResponse == null)
+{
+    
+    <LoadingComponent></LoadingComponent>
+}
+
+else
+{
+
+    <CardBody>
+    <CardHeader>Order: @OrderResponse.OrderId</CardHeader>
+    <CardBody>
+<Card> Created: @OrderResponse.CreatedDate,</Card>
+    <Card> Status: @OrderResponse.Status,</Card>
+    <Card> Bought by: @OrderResponse.Username,</Card>
+    <Card> Total price: @OrderResponse.TotalPrice,</Card>
+    </CardBody>
+    @foreach(var lineItem in @OrderResponse.LineItems)
+    {
+        <Card style="max-height:350px; max-width:200px; display: inline-flex; ">
+            <CardHeader>@lineItem.Item.Name</CardHeader>
+            <img style="max-height:200px; max-width:200px; " src="@lineItem.Item.PictureSourcePath">
+            <CardBody>
+                Description: @lineItem.Item.Description
+                Price: @lineItem.Item.Price
+                Amount: @lineItem.Quantity
+                @if(Admin)
+                {
+                    <a class="fas fa-minus-circle"
+                               style="color: red; cursor: pointer"
+                               @onclick="(() => RemoveLineItem(lineItem))">
+                            </a>
+                }
+               
+            </CardBody>
+        </Card>
+
+    }
+    </CardBody>
+}
+
+<SomethingWentWrong @ref="SomethingWentWrong"></SomethingWentWrong>

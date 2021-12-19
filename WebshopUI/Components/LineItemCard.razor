@@ -1,0 +1,19 @@
+﻿<Card>
+            <CardHeader>@LineItemResponse.Item.Name</CardHeader>
+            <CardBody>
+                Description: @LineItemResponse.Item.Description
+                @if(LineItemResponse.Item.Price != 0)
+                     {
+                      <div>Price: @LineItemResponse.Item.Price</div>
+                     }
+                     @if(LineItemResponse.Quantity != 0)
+                     {
+                       <div>Amount: @LineItemResponse.Quantity</div>
+                       <a class="fas fa-minus-circle"
+                               style="color: red; cursor: pointer"
+                               @onclick="(() => DeleteLineItem(LineItemResponse))">
+                            </a>
+                     }
+                
+            </CardBody>
+</Card>

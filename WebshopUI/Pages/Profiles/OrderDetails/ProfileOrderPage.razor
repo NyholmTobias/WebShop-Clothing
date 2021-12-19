@@ -1,0 +1,12 @@
+﻿@page "/profile/order/{OrderId:guid}"
+
+@if(OrderResponse == null)
+{
+    
+     <LoadingComponent></LoadingComponent>
+}
+
+else
+{
+    <OrderDetailsComponent Admin="false" @ref="OrderDetailsComponent" OrderId="OrderId"></OrderDetailsComponent>
+}

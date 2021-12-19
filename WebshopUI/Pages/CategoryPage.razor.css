@@ -1,0 +1,25 @@
+﻿
+
+.item-container {
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    justify-content:center;
+}
+
+
+/* VIEWPORT ADJUSTMENTS */
+@media only screen and (max-width: 1050px) {
+    .category-title {
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width:870px) {
+    .item-container {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items:center;
+    }
+}

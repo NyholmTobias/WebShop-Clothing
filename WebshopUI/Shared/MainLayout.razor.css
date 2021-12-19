@@ -1,0 +1,25 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    font-family: Courier New, Courier, monospace;
+    color: black;
+    font-size: 13px;
+    background-color: #F5F5F5;
+    margin:0;
+    padding:3em;
+    min-height:100vh;
+    min-width:100vh
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    padding:3em;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 auto;
+}
